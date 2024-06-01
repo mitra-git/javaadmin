@@ -4,10 +4,10 @@
 <head>
     <meta charset="utf-8" />
     <link rel="apple-touch-icon" sizes="76x76" href="../assets/img/apple-icon.png">
-    <link rel="icon" type="image/png" href="{{asset('assets/favicon.png')}}">
+    <link rel="icon" type="image/png" href="{{asset('assets/img/logo_orange.png')}}">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
     <title>
-        Nusa Raya Admin
+        Java Residence Admin
     </title>
     <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no'
         name='viewport' />
@@ -30,13 +30,13 @@
 </style>
 
 <body class="d-flex align-items-center justify-content-center"
-    style="background: linear-gradient(to bottom, rgba(26, 26, 26, 0.9) 0%, rgba(12, 0, 37, 0.842) 100%), url('{{asset($information->image)}}');background-size:cover">
+    style="background: linear-gradient(to bottom, rgb(26 26 26 / 90%) 0%, rgb(185 74 21 / 84%) 100%), url('{{asset($information->image)}}');background-size:cover">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-12 col-md-8 col-lg-6 col-xl-5">
                 <div class="card py-4 px-4">
                     <div class="d-flex justify-content-center mb-3">
-                        <img src="assets/favicon.png" style="max-width:150px;width:140px;" />
+                        <img src="{{asset($information->logo_favicon)}}" style="max-width:150px;width:140px;" />
                     </div>
                     <div class="division">
                         <div class="row">
@@ -83,7 +83,7 @@
                         </div>
                         <div class="form-group mt-3">
                             <button type="submit" class="btn btn-block btn-primary btn-lg"
-                                style="background-color:#4a00e0">
+                                style="background-color:#f37321">
                                 <small><i class="far fa-user pr-2"></i>Register</small>
                             </button>
                         </div>

@@ -30,14 +30,14 @@ Project Image / Create
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label style="color:black">Project Selected</label>
-                                        <select id="countries" name="id_project" required
+                                        <select id="countries" name="id_project_image" required
                                             class="form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5">
                                             <option selected>Choose Project Type</option>
                                             @foreach ($projectId as $tj)
                                             <option value="{{ $tj->id }}">{{$tj->title}}</option>
                                             @endforeach
                                         </select>
-                                        @error('id_project')
+                                        @error('id_project_image')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
                                         </span>

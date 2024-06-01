@@ -65,10 +65,10 @@ class ProjectImageController extends Controller
     public function update(Request $request, ProjectImage $projectImage)
     {
         $request->validate([
-            'id_project' => 'required',
-            'image' => ($request->hasFile('image') || !$projectImage->image) ? 'image|mimes:jpeg,jpg,png|max:2048' : '', // Check if image is required
+            'id_project_image' => 'required',
+            'image' => ($request->hasFile('image') || !$projectImage->image) ? 'image|mimes:jpeg,jpg,png' : '', // Check if image is required
         ], [
-            'id_project.required' => 'Project id is required.',
+            'id_project_image.required' => 'Project id is required.',
             'image.required' => 'Image is required.',
             'image.mimes' => 'Only JPEG, JPG, and PNG images are allowed.',
             'image.max' => 'The image size should not exceed 2048 KB.',

@@ -72,7 +72,7 @@ Project / Edit / {{$project->id}}
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label style="color:black">Image</label>
+                                        <label style="color:black"> Header Image</label>
                                         <div class="grid grid-cols-6">
                                             @if($project->header_image)
                                             <img id="image_display2" class="object-contain items-center"

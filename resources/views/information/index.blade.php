@@ -143,6 +143,34 @@ Website Information
                         <div class="row">
                             <div class="col-md-12">
                                 <div class="form-group">
+                                    <label>Header Image</label>
+                                    <div class="grid grid-cols-6">
+                                        @if($information->header_image)
+                                        <div class="p-3 shadow-lg text-center"
+                                            style="background-color: #c7c7c7;border-radius:20px">
+                                            <img id="image_display6" class="object-contain items-center"
+                                                style="width:auto;height:10rem;object-fit:cover"
+                                                src="{{asset($information->header_image)}}">
+                                        </div>
+                                        @else
+                                        <img id="image_display6" class="object-contain items-center"
+                                            style="width:10rem;height:10rem;object-fit:cover"
+                                            src="{{ asset('assets/img/no-photo.png') }}">
+                                        @endif
+                                    </div>
+                                    <input type="file" class="form-control mt-3" id="file_input6" name="header_image" value=""
+                                        disabled>
+                                    @error('header_image')
+                                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="form-group">
                                     <label>About Us Video (YouTube Link)</label>
                                     <div class="grid grid-cols-6">
                                         <div id="video_container">
@@ -349,6 +377,19 @@ Website Information
                 imageDisplay3.src = e.target.result;
             };
             reader3.readAsDataURL(fileInput3.files[0]);
+        }
+    });
+
+    const fileInput6 = document.getElementById('file_input6');
+    const imageDisplay6 = document.getElementById('image_display6');
+
+    fileInput6.addEventListener('change', function() {
+        if (fileInput6.files.length > 0) {
+            const reader6 = new FileReader();
+            reader6.onload = function(e) {
+                imageDisplay6.src = e.target.result;
+            };
+            reader6.readAsDataURL(fileInput6.files[0]);
         }
     });
 </script>

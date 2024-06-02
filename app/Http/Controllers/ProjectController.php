@@ -24,24 +24,24 @@ class ProjectController extends Controller
     {
         $this->validate($request, [
             'title' => 'required|max:255',
-            'header_image' => 'required|image|mimes:jpeg,jpg,png|max:2048',
-            'image' => 'required|image|mimes:jpeg,jpg,png|max:2048',
+            'header_image' => 'required|image|mimes:jpeg,jpg,png|max:4096',
+            'image' => 'required|image|mimes:jpeg,jpg,png|max:4096',
             'description' => 'required',
-            'siteplan' => 'required|image|mimes:jpeg,jpg,png|max:2048',
+            'siteplan' => 'required|image|mimes:jpeg,jpg,png|max:4096',
             'location' => 'required',
         ], [
             'title.required' => 'Name is required.',
             'title.max' => 'Title should not exceed 255 characters.',
             'image.required' => 'Image is required.',
             'image.mimes' => 'Only JPEG, JPG, and PNG images are allowed.', // Custom error message for image format
-            'image.max' => 'The image size should not exceed 2048 KB.', // Custom error message for image size
+            'image.max' => 'The image size should not exceed 4096 KB.', // Custom error message for image size
             'header_image.required' => 'Image is required.',
             'header_image.mimes' => 'Only JPEG, JPG, and PNG images are allowed.', // Custom error message for image format
-            'header_image.max' => 'The image size should not exceed 2048 KB.', // Custom error message for image size
+            'header_image.max' => 'The image size should not exceed 4096 KB.', // Custom error message for image size
             'description.required' => 'Description is required',
             'siteplan.required' => 'Image is required.',
             'siteplan.mimes' => 'Only JPEG, JPG, and PNG images are allowed.', // Custom error message for image format
-            'siteplan.max' => 'The image size should not exceed 2048 KB.', // Custom error message for image size
+            'siteplan.max' => 'The image size should not exceed 4096 KB.', // Custom error message for image size
             'location.required' => 'Location is required',
         ]);
         $input = $request->all();
@@ -85,9 +85,9 @@ class ProjectController extends Controller
     {
         $request->validate([
             'title' => 'required|max:255',
-            'image' => ($request->hasFile('image') || !$project->image) ? 'image|mimes:jpeg,jpg,png|max:2048' : '', // Check if image is required
-            'header_image' => ($request->hasFile('header_image') || !$project->header_image) ? 'image|mimes:jpeg,jpg,png|max:2048' : '', // Check if image is required
-            'siteplan' => ($request->hasFile('siteplan') || !$project->siteplan) ? 'image|mimes:jpeg,jpg,png|max:2048' : '', // Check if image is required
+            'image' => ($request->hasFile('image') || !$project->image) ? 'image|mimes:jpeg,jpg,png|max:4096' : '', // Check if image is required
+            'header_image' => ($request->hasFile('header_image') || !$project->header_image) ? 'image|mimes:jpeg,jpg,png|max:4096' : '', // Check if image is required
+            'siteplan' => ($request->hasFile('siteplan') || !$project->siteplan) ? 'image|mimes:jpeg,jpg,png|max:4096' : '', // Check if image is required
             'description' => 'required',
             'location' => 'required',
         ], [
@@ -95,14 +95,14 @@ class ProjectController extends Controller
             'title.max' => 'Title should not exceed 255 characters.',
             'image.required' => 'Image is required.',
             'image.mimes' => 'Only JPEG, JPG, and PNG images are allowed.', // Custom error message for image format
-            'image.max' => 'The image size should not exceed 2048 KB.', // Custom error message for image size
+            'image.max' => 'The image size should not exceed 4096 KB.', // Custom error message for image size
             'header_image.required' => 'Image is required.',
             'header_image.mimes' => 'Only JPEG, JPG, and PNG images are allowed.', // Custom error message for image format
-            'header_image.max' => 'The image size should not exceed 2048 KB.', // Custom error message for image size
+            'header_image.max' => 'The image size should not exceed 4096 KB.', // Custom error message for image size
             'description.required' => 'Description is required',
             'siteplan.required' => 'Image is required.',
             'siteplan.mimes' => 'Only JPEG, JPG, and PNG images are allowed.', // Custom error message for image format
-            'siteplan.max' => 'The image size should not exceed 2048 KB.', // Custom error message for image size
+            'siteplan.max' => 'The image size should not exceed 4096 KB.', // Custom error message for image size
             'location.required' => 'Location is required',
         ]);
 

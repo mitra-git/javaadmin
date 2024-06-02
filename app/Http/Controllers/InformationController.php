@@ -36,6 +36,7 @@ class InformationController extends Controller
                 'google_map' => 'required',
                 'order_wa' => 'required',
                 'video' => 'required',
+                'header_image' => ($request->hasFile('header_image') || !$information->header_image) ? 'image|mimes:jpeg,jpg,png|max:2048' : '', // Check if image is required
             ];
 
             if (!$request->hasFile('logo_header') && !$information->logo_header) {
@@ -60,6 +61,12 @@ class InformationController extends Controller
                 $rules['image'] = 'required|image|mimes:jpeg,jpg,png';
             } elseif ($request->hasFile('image')) {
                 $rules['image'] = 'image|mimes:jpeg,jpg,png';
+            }
+
+            if (!$request->hasFile('header_image') && !$information->header_image) {
+                $rules['header_image'] = 'required|image|mimes:jpeg,jpg,png';
+            } elseif ($request->hasFile('header_image')) {
+                $rules['header_image'] = 'image|mimes:jpeg,jpg,png';
             }
 
             $request->validate($rules);
@@ -107,6 +114,14 @@ class InformationController extends Controller
                 }
             }
 
+            if (!empty($information->header_image) && $request->hasFile('header_image')) {
+                $imagePath6 = $information->header_image;
+
+                if (File::exists($imagePath6)) {
+                    File::delete($imagePath6);
+                }
+            }
+
             if ($logo_header = $request->file('logo_header')) {
                 $destinationPath = 'images/information/logo_header/';
                 $profileImage = "information" . "-" . "logo_header" . date('YmdHis') . "." . $logo_header->getClientOriginalExtension();
@@ -141,6 +156,15 @@ class InformationController extends Controller
                 $input['image'] = $destinationPath4 . $profileImage4;
             } elseif (!$request->hasFile('image') && !$information->image) {
                 unset($input['image']);
+            }
+
+            if ($header_image = $request->file('header_image')) {
+                $destinationPath6 = 'images/information/header_image/';
+                $profileImage6 = "information" . "-" . date('YmdHis') . "." . $header_image->getClientOriginalExtension();
+                $header_image->move($destinationPath6, $profileImage6);
+                $input['header_image'] = $destinationPath6 . $profileImage6;
+            } elseif (!$request->hasFile('header_image') && !$information->header_image) {
+                unset($input['header_image']);
             }
 
             $information->update($input);

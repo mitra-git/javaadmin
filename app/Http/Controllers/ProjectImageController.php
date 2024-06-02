@@ -26,7 +26,7 @@ class ProjectImageController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'id_project' => 'required',
+            'id_project_image' => 'required',
             'image' => 'required|image|mimes:jpeg,jpg,png|max:2048',
         ], [
             'id_project.required' => 'Project id is required.',

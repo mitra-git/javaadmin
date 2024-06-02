@@ -15,6 +15,7 @@ class Information extends Model
         'logo_header',
         'logo_favicon',
         'logo_company',
+        'header_image',
         'video',
         'name',
         'image',

@@ -26,7 +26,7 @@ class ProjectType extends Model
         'air',
     ];
 
-    public function project()
+    public function projectTypes()
     {
         return $this->belongsTo(Project::class, 'id_project');
     }

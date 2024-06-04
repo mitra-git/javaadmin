@@ -13,7 +13,9 @@ class ProjectTypeController extends Controller
     {
         $projectType = ProjectType::all();
         $projectType = ProjectType::paginate(8);
-        return view('projectType.index', compact('projectType'));
+        $jenisProject = Project::all();
+
+        return view('projectType.index', compact('projectType', 'jenisProject'));
     }
 
     public function create()

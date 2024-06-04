@@ -73,7 +73,8 @@ Project Type
                                             {{$c->small_description}}
                                         </td>
                                         <td>
-                                            {{$c->project->title}}
+
+                                            {{$c->projectTypes->title}}
                                         </td>
                                         <td>
                                             <div class="d-flex align-items-center">

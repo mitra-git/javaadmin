@@ -34,8 +34,8 @@ Project Type / Edit / {{$projectType->id}}
                                         <label style="color:black">Project Type Selected</label>
                                         <select id="id_project" name="id_project" required
                                             class="form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5">
-                                            <option value="{{ $projectType->id }}" selected required>
-                                                {{$projectType->project->title}}</option>
+                                            <option value="{{ $projectType->projectTypes->id }}" selected required>
+                                                {{$projectType->projectTypes->title}}</option>
                                             @foreach ($projectImageAll as $tj)
                                             <option value="{{ $tj->id }}">{{$tj->title}}</option>
                                             @endforeach

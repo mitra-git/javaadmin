@@ -93,7 +93,7 @@ class ProjectTypeController extends Controller
             // Then read the saved file for external upload
             $imagePath = public_path($localImagePath);
             $response = Http::attach('image_360', file_get_contents($imagePath), $profileImage360)
-                ->post('https://admin.java.1017studios.com/api/upload-image-360', ['timestamp' => $timestamp]);
+                ->post('https://java.1017studios.com/api/upload-image-360', ['timestamp' => $timestamp]);
 
             Log::info('Response from frontend server:', ['response' => $response->body()]);
 
@@ -212,7 +212,7 @@ class ProjectTypeController extends Controller
             // Then read the saved file for external upload
             $imagePath = public_path($localImagePath);
             $response = Http::attach('image_360', file_get_contents($imagePath), $profileImage360)
-                ->post('https://admin.java.1017studios.com/api/upload-image-360', ['timestamp' => $timestamp]);
+                ->post('https://java.1017studios.com/api/upload-image-360', ['timestamp' => $timestamp]);
 
             Log::info('Response from frontend server:', ['response' => $response->body()]);
 
@@ -247,7 +247,7 @@ class ProjectTypeController extends Controller
 
             // Delete image on frontend server if it exists
             if (!empty($projectType->image_360)) {
-                $response = Http::delete('https://admin.java.1017studios.com/api/delete-image-360', [
+                $response = Http::delete('https://java.1017studios.com/api/delete-image-360', [
                     'image_path' => $projectType->image_360 // Assuming this is the path on frontend server
                 ]);
 

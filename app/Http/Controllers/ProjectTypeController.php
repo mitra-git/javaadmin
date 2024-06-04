@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\ProjectType;
 use App\Models\Project;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Log;
 
 class ProjectTypeController extends Controller
 {
@@ -23,7 +26,6 @@ class ProjectTypeController extends Controller
         $projectId = Project::all();
         return view('projectType.create', compact('projectId'));
     }
-
     public function store(Request $request)
     {
         $this->validate($request, [
@@ -46,10 +48,10 @@ class ProjectTypeController extends Controller
             'name.required' => 'Name is required.',
             'name.max' => 'Name should not exceed 255 characters.',
             'image.required' => 'Image is required.',
-            'image.mimes' => 'Only JPEG, JPG, and PNG images are allowed.', // Custom error message for image format
-            'image.max' => 'The image size should not exceed 2048 KB.', // Custom error message for image size
+            'image.mimes' => 'Only JPEG, JPG, and PNG images are allowed.',
+            'image.max' => 'The image size should not exceed 2048 KB.',
             'image_360.required' => 'Image is required.',
-            'image_360.mimes' => 'Only JPG images are allowed.', // Custom error message for image format
+            'image_360.mimes' => 'Only JPG images are allowed.',
             'small_description.required' => 'Description is required',
             'luas_bangunan.required' => 'Luas Bangunan is required.',
             'luas_bangunan.max' => 'Luas Bangunan should not exceed 255 characters.',
@@ -70,25 +72,46 @@ class ProjectTypeController extends Controller
             'air.required' => 'Air is required.',
             'air.max' => 'Air should not exceed 255 characters.',
         ]);
+
         $input = $request->all();
+
         if ($image = $request->file('image')) {
             $destinationPath = 'images/projectType/image/';
             $profileImage = "image" . "-" . date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
+            $image->move(public_path($destinationPath), $profileImage);
             $input['image'] = $destinationPath . $profileImage;
         }
 
         if ($image_360 = $request->file('image_360')) {
-            $destinationPath = 'images/projectType/image_360/';
-            $profileImage = "image" . "-" . date('YmdHis') . "." . $image_360->getClientOriginalExtension();
-            $image_360->move($destinationPath, $profileImage);
-            $input['image_360'] = $destinationPath . $profileImage;
+            // Save locally first
+            $destinationPath360 = 'images/projectType/image_360/';
+            $timestamp = date('YmdHis');
+            $profileImage360 = "image_360" . "-" . $timestamp . "." . $image_360->getClientOriginalExtension();
+            $image_360->move(public_path($destinationPath360), $profileImage360);
+            $localImagePath = $destinationPath360 . $profileImage360;
+
+            // Then read the saved file for external upload
+            $imagePath = public_path($localImagePath);
+            $response = Http::attach('image_360', file_get_contents($imagePath), $profileImage360)
+                ->post('https://admin.java.1017studios.com/api/upload-image-360', ['timestamp' => $timestamp]);
+
+            Log::info('Response from frontend server:', ['response' => $response->body()]);
+
+            if ($response->successful()) {
+                $externalImagePath = $response->json('path');
+                $input['image_360'] = $localImagePath; // Use locally saved path for consistency
+                $input['image_360_external'] = $externalImagePath;
+            } else {
+                return redirect()->route('projectType.index')->with(['error' => 'Failed to upload 360 image to frontend server!']);
+            }
         }
 
         ProjectType::create($input);
 
         return redirect()->route('projectType.index')->with(['success' => 'Data successfully saved!']);
     }
+
+
 
     public function show(string $id)
     {
@@ -154,7 +177,7 @@ class ProjectTypeController extends Controller
         $input = $request->except(['_token', '_method']);
 
         if (!empty($projectType->image) && $request->hasFile('image')) {
-            $imagePath = $projectType->image;
+            $imagePath = public_path($projectType->image);
 
             if (File::exists($imagePath)) {
                 File::delete($imagePath);
@@ -162,7 +185,7 @@ class ProjectTypeController extends Controller
         }
 
         if (!empty($projectType->image_360) && $request->hasFile('image_360')) {
-            $imagePath2 = $projectType->image_360;
+            $imagePath2 = public_path($projectType->image_360);
 
             if (File::exists($imagePath2)) {
                 File::delete($imagePath2);
@@ -171,18 +194,35 @@ class ProjectTypeController extends Controller
 
         if ($image = $request->file('image')) {
             $destinationPath = 'images/projectType/image/';
-            $profileImage = "projectType" . "-" . date('YmdHis') . "." . $image->getClientOriginalExtension();
-            $image->move($destinationPath, $profileImage);
+            $profileImage = "image" . "-" . date('YmdHis') . "." . $image->getClientOriginalExtension();
+            $image->move(public_path($destinationPath), $profileImage);
             $input['image'] = $destinationPath . $profileImage;
         } elseif (!$request->hasFile('image') && !$projectType->image) {
             unset($input['image']);
         }
 
         if ($image_360 = $request->file('image_360')) {
-            $destinationPath = 'images/projectType/image_360/';
-            $profileImage = "projectType" . "-" . date('YmdHis') . "." . $image_360->getClientOriginalExtension();
-            $image_360->move($destinationPath, $profileImage);
-            $input['image_360'] = $destinationPath . $profileImage;
+            // Save locally first
+            $destinationPath360 = 'images/projectType/image_360/';
+            $timestamp = date('YmdHis');
+            $profileImage360 = "image_360" . "-" . $timestamp . "." . $image_360->getClientOriginalExtension();
+            $image_360->move(public_path($destinationPath360), $profileImage360);
+            $localImagePath = $destinationPath360 . $profileImage360;
+
+            // Then read the saved file for external upload
+            $imagePath = public_path($localImagePath);
+            $response = Http::attach('image_360', file_get_contents($imagePath), $profileImage360)
+                ->post('https://admin.java.1017studios.com/api/upload-image-360', ['timestamp' => $timestamp]);
+
+            Log::info('Response from frontend server:', ['response' => $response->body()]);
+
+            if ($response->successful()) {
+                $externalImagePath = $response->json('path');
+                $input['image_360'] = $localImagePath; // Use locally saved path for consistency
+                $input['image_360_external'] = $externalImagePath;
+            } else {
+                return redirect()->route('projectType.index')->with(['error' => 'Failed to upload 360 image to frontend server!']);
+            }
         } elseif (!$request->hasFile('image_360') && !$projectType->image_360) {
             unset($input['image_360']);
         }
@@ -195,25 +235,38 @@ class ProjectTypeController extends Controller
 
     public function destroy(ProjectType $projectType)
     {
-        if (!empty($projectType->image)) {
-            $imagePath = $projectType->image;
+        try {
+            // Delete images on admin server
+            if (!empty($projectType->image)) {
+                $imagePath = public_path($projectType->image);
 
-            if (file_exists($imagePath)) {
-                unlink($imagePath);
+                if (file_exists($imagePath)) {
+                    unlink($imagePath);
+                }
             }
-        }
 
-        if (!empty($projectType->image_360)) {
-            $imagePath2 = $projectType->image_360;
+            // Delete image on frontend server if it exists
+            if (!empty($projectType->image_360)) {
+                $response = Http::delete('https://admin.java.1017studios.com/api/delete-image-360', [
+                    'image_path' => $projectType->image_360 // Assuming this is the path on frontend server
+                ]);
 
-            if (file_exists($imagePath2)) {
-                unlink($imagePath2);
+                if ($response->successful()) {
+                    // Delete local image after successful deletion on frontend server
+                    $imagePath2 = public_path($projectType->image_360);
+                    if (file_exists($imagePath2)) {
+                        unlink($imagePath2);
+                    }
+                }
             }
+
+            // Delete the ProjectType record
+            $projectType->delete();
+
+            return redirect()->route('projectType.index')->with('success', 'ProjectType deleted successfully');
+        } catch (\Exception $e) {
+            Log::error('Delete ProjectType Error: ' . $e->getMessage());
+            return redirect()->route('projectType.index')->with('error', 'Internal Server Error');
         }
-
-        $projectType->delete();
-
-        return redirect()->route('projectType.index')
-            ->with('success', 'ProjectType deleted successfully');
     }
 }

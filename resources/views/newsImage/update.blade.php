@@ -34,7 +34,7 @@ News / Edit / {{$newsImage->id}}
                                         <label style="color:black">News Selected</label>
                                         <select id="countries" name="id_news" required
                                             class="form-control bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-amber-500 focus:border-amber-500 block w-full p-2.5">
-                                            <option value="{{ $newsImage->id }}" selected disabled>{{$newsImage->news->title}}</option>
+                                            <option value="{{ $newsImage->news->id }}" selected>{{$newsImage->news->title}}</option>
                                             @foreach ($newsImageAll as $tj)
                                             <option value="{{ $tj->id }}">{{$tj->title}}</option>
                                             @endforeach

@@ -108,6 +108,32 @@ Project Type / Edit / {{$projectType->id}}
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
+                                        <label style="color:black"> Image 360</label>
+                                        <div class="grid grid-cols-6">
+                                            @if($projectType->image_360)
+                                            <img id="image_display2" class="object-contain items-center"
+                                                style="width:10rem;height:10rem;object-fit:cover"
+                                                src="{{asset($projectType->image_360)}}">
+                                            @else
+                                            <img id="image_display2" class="object-contain items-center"
+                                                style="width:10rem;height:10rem;object-fit:cover"
+                                                src="{{ asset('assets/img/no-photo.png') }}">
+                                            @endif
+                                        </div>
+                                        <input type="file"
+                                            class="form-control mt-3 @error('image_360') is-invalid @enderror"
+                                            id="file_input2" name="image_360" value="">
+                                        @error('image_360')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
                                         <label>Luas Bangunan</label>
                                         <input type="text" id="luas_bangunan" name="luas_bangunan"
                                             value="{{$projectType->luas_bangunan}}"
@@ -300,6 +326,19 @@ Project Type / Edit / {{$projectType->id}}
                 imageDisplay3.src = e.target.result;
             };
             reader3.readAsDataURL(fileInput3.files[0]);
+        }
+    });
+
+    const fileInput7 = document.getElementById('file_input7');
+    const imageDisplay7 = document.getElementById('image_display7');
+
+    fileInput7.addEventListener('change', function() {
+        if (fileInput7.files.length > 0) {
+            const reader7 = new FileReader();
+            reader7.onload = function(e) {
+                imageDisplay7.src = e.target.result;
+            };
+            reader7.readAsDataURL(fileInput7.files[0]);
         }
     });
 </script>

@@ -1,5 +1,16 @@
 @extends('layouts.master')
+<script src='//pchen66.github.io/js/three/three.min.js'></script>
+<script src='//pchen66.github.io/js/panolens/panolens.min.js'></script>
 
+<style>
+    .image-container {
+        height: 40rem;
+    }
+
+    .image-container:before {
+        content: attr(data-image);
+    }
+</style>
 @section('content')
 
 @section('breadcrumb')
@@ -80,6 +91,22 @@ Project / Detail / {{$projectType->id}}
                                             <img id="image_display" class="object-cover"
                                                 style="width:10rem;height:10rem;object-fit:cover"
                                                 src="{{ asset($projectType->image) }}" alt="image description">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label style="color:black">Image 360°</label>
+                                        <div class="grid grid-cols-6">
+                                            @if($projectType->image_360)
+                                            <div class='image-container'></div>
+                                            @else
+                                            <img class="object-contain items-center"
+                                                style="width:10rem;height:10rem;object-fit:cover"
+                                                src="{{ asset('assets/img/no-photo.png') }}">
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -243,5 +270,27 @@ Project / Detail / {{$projectType->id}}
 @endsection
 
 @section('jquery')
+<script type="text/javascript">
+    @if($projectType->image_360)
 
+    const d = document;
+    d.addEventListener('DOMContentLoaded', () => {
+        const viewer = new PANOLENS.Viewer({
+            'container': d.querySelector('.image-container')
+        });
+
+        const images = ['{{ asset($projectType->image_360) }}'];
+
+        viewer.add(new PANOLENS.ImagePanorama(images[0]));
+
+        d.querySelector('button').addEventListener('click', e => {
+            e.target.dataset.index = 1 - e.target.dataset.index;
+            let imgpath = images[Number(e.target.dataset.index)];
+            viewer.dispose();
+            viewer.add(new PANOLENS.ImagePanorama(imgpath));
+        })
+    })
+    @else
+    @endif
+</script>
 @endsection

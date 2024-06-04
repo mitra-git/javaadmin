@@ -1,5 +1,18 @@
 @extends('layouts.master')
+<script src='//pchen66.github.io/js/three/three.min.js'></script>
+<script src='//pchen66.github.io/js/panolens/panolens.min.js'></script>
 
+<style>
+    .image-container {
+        height: 20rem;
+        width: 20rem;
+        object-fit: cover;
+    }
+
+    .image-container:before {
+        content: attr(data-image);
+    }
+</style>
 @section('content')
 
 @section('breadcrumb')
@@ -65,8 +78,8 @@ Project Type / Create
                                     <div class="form-group">
                                         <label>Small Description</label>
                                         <input type="text" id="small_description" name="small_description"
-                                            class="form-control @error('small_description') is-invalid @enderror" placeholder="Small Description"
-                                            required>
+                                            class="form-control @error('small_description') is-invalid @enderror"
+                                            placeholder="Small Description" required>
                                         @error('small_description')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -98,10 +111,30 @@ Project Type / Create
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
+                                        <label style="color:black">Image 360°</label>
+                                        <br>
+                                        <small class="text-muted">Please choose an image to upload.</small>
+                                        <div class="grid grid-cols-6 test">
+                                            <div class='image-container' id="panoramaImage"></div>
+                                        </div>
+                                        <br>
+                                        <input type="file" name="image_360" id="file_input7"
+                                            class="form-control mt-2 @error('image_360') is-invalid @enderror" />
+                                        @error('image_360')
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $message }}</strong>
+                                        </span>
+                                        @enderror
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="form-group">
                                         <label>Luas Bangunan</label>
                                         <input type="text" id="luas_bangunan" name="luas_bangunan"
-                                            class="form-control @error('luas_bangunan') is-invalid @enderror" placeholder="Luas bangunan"
-                                            required>
+                                            class="form-control @error('luas_bangunan') is-invalid @enderror"
+                                            placeholder="Luas bangunan" required>
                                         @error('luas_bangunan')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -115,8 +148,8 @@ Project Type / Create
                                     <div class="form-group">
                                         <label>Luas Tanah</label>
                                         <input type="text" id="luas_tanah" name="luas_tanah"
-                                            class="form-control @error('luas_tanah') is-invalid @enderror" placeholder="Luas Tanah"
-                                            required>
+                                            class="form-control @error('luas_tanah') is-invalid @enderror"
+                                            placeholder="Luas Tanah" required>
                                         @error('luas_tanah')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -130,8 +163,8 @@ Project Type / Create
                                     <div class="form-group">
                                         <label>Fondasi</label>
                                         <input type="text" id="fondasi" name="fondasi"
-                                            class="form-control @error('fondasi') is-invalid @enderror" placeholder="Fondasi"
-                                            required>
+                                            class="form-control @error('fondasi') is-invalid @enderror"
+                                            placeholder="Fondasi" required>
                                         @error('fondasi')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -145,8 +178,8 @@ Project Type / Create
                                     <div class="form-group">
                                         <label>Dinding</label>
                                         <input type="text" id="dinding" name="dinding"
-                                            class="form-control @error('dinding') is-invalid @enderror" placeholder="Dinding"
-                                            required>
+                                            class="form-control @error('dinding') is-invalid @enderror"
+                                            placeholder="Dinding" required>
                                         @error('dinding')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -160,8 +193,8 @@ Project Type / Create
                                     <div class="form-group">
                                         <label>Plafon</label>
                                         <input type="text" id="plafon" name="plafon"
-                                            class="form-control @error('plafon') is-invalid @enderror" placeholder="Plafon"
-                                            required>
+                                            class="form-control @error('plafon') is-invalid @enderror"
+                                            placeholder="Plafon" required>
                                         @error('plafon')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -175,8 +208,8 @@ Project Type / Create
                                     <div class="form-group">
                                         <label>Kamar Tidur</label>
                                         <input type="text" id="kamar_tidur" name="kamar_tidur"
-                                            class="form-control @error('kamar_tidur') is-invalid @enderror" placeholder="Kamar Tidur"
-                                            required>
+                                            class="form-control @error('kamar_tidur') is-invalid @enderror"
+                                            placeholder="Kamar Tidur" required>
                                         @error('kamar_tidur')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -190,8 +223,8 @@ Project Type / Create
                                     <div class="form-group">
                                         <label>Kamar Mandi</label>
                                         <input type="text" id="kamar_mandi" name="kamar_mandi"
-                                            class="form-control @error('kamar_mandi') is-invalid @enderror" placeholder="Kamar Mandi"
-                                            required>
+                                            class="form-control @error('kamar_mandi') is-invalid @enderror"
+                                            placeholder="Kamar Mandi" required>
                                         @error('kamar_mandi')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -205,8 +238,8 @@ Project Type / Create
                                     <div class="form-group">
                                         <label>Carport</label>
                                         <input type="text" id="carport" name="carport"
-                                            class="form-control @error('carport') is-invalid @enderror" placeholder="Carport"
-                                            required>
+                                            class="form-control @error('carport') is-invalid @enderror"
+                                            placeholder="Carport" required>
                                         @error('carport')
                                         <span class="invalid-feedback" role="alert">
                                             <strong>{{ $message }}</strong>
@@ -263,5 +296,31 @@ Project Type / Create
         }
     });
 
+</script>
+<script type="text/javascript">
+    const d = document;
+    d.addEventListener('DOMContentLoaded', () => {
+        const viewer = new PANOLENS.Viewer({
+            'container': d.querySelector('.image-container')
+        });
+
+        const panoramaImage = d.getElementById('panoramaImage');
+        const fileInput = d.getElementById('file_input7');
+
+        fileInput.addEventListener('change', function() {
+            const file = this.files[0];
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const imageUrl = e.target.result;
+                panoramaImage.src = imageUrl;
+
+                viewer.dispose();
+                viewer.add(new PANOLENS.ImagePanorama(imageUrl));
+            }
+
+            reader.readAsDataURL(file);
+        });
+    });
 </script>
 @endsection

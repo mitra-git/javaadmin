@@ -15,6 +15,7 @@ class ProjectType extends Model
         'name',
         'small_description',
         'image',
+        'image_360',
         'luas_bangunan',
         'luas_tanah',
         'fondasi',

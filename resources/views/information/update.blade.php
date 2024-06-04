@@ -165,8 +165,8 @@ Website Information / Edit
                     </div>
                     @endif
                   </div>
-                  <input type="file" class="form-control mt-3 @error('header_image') is-invalid @enderror" id="file_input6"
-                    name="header_image" value="">
+                  <input type="file" class="form-control mt-3 @error('header_image') is-invalid @enderror"
+                    id="file_input6" name="header_image" value="">
                   <small class="text-muted">Please choose an image to upload.</small>
                   @error('header_image')
                   <span class="invalid-feedback" role="alert">
@@ -350,29 +350,42 @@ Website Information / Edit
   </div>
   <div class="col-md-4">
     <div class="card card-user">
-      <div class="image">
-        <img src="{{asset($information->image)}}" alt="..." style="width: 100%;">
+      <div class="image" style="height: 300px">
+        <img src="{{asset($information->image)}}" alt="..." style="width:100%">
       </div>
       <div class="card-body">
-        <a href="#">
-          <h5 class="title">{{$information->name}}</h5>
-        </a>
-        <p class="description">
-          {{$information->slogan}}
+        <h5 class="title">{{$information->name}}</h5>
+        <p>{{$information->description}}
         </p>
-        <iframe data-aos="fade-up" data-aos-duration="1000" src="{{$information->google_map}}" width="100%" height="300"
-          style="border:0; max-width: 100%; height: 500;" allowfullscreen="" loading="lazy"
-          referrerpolicy="no-referrer-when-downgrade">
-        </iframe>
       </div>
       <hr>
-      <div class="button-container">
-        <a href="{{$information->google_map}}" target="__" class="btn btn-neutral btn-icon btn-round btn-lg">
-          <i class="bi bi-house-door-fill"></i>
-        </a>
-        <a href="{{$information->link_wa}}" target="__" class="btn btn-neutral btn-icon btn-round btn-lg">
-          <i class="bi bi-telephone-fill"></i>
-        </a>
+      <div class="button-container px-5" style="background: #e06500">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="row">
+              <div class="col-sm-3 py-2 px-2">
+                <a href="{{$information->youtube}}" target="_blank">
+                  <img src="{{asset('assets/img/Logo yt.png')}}" style="width:20%" />
+                </a>
+              </div>
+              <div class="col-sm-3 py-2 px-2">
+                <a href="{{$information->facebook}}" target="_blank">
+                  <img src="{{asset('assets/img/Logo fb.png')}}" style="width:13%" />
+                </a>
+              </div>
+              <div class="col-sm-3 py-2 px-2">
+                <a href="{{$information->tiktok}}" target="_blank">
+                  <img src="{{asset('assets/img/Logo tiktok.png')}}" style="width:20%" />
+                </a>
+              </div>
+              <div class="col-sm-3 py-2 px-2">
+                <a href="{{$information->instagram}}" target="_blank">
+                  <img src="{{asset('assets/img/Logo ig.png')}}" style="width:20%" />
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
   </div>

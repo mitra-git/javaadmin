@@ -76,7 +76,7 @@ News
                                             </div>
                                         </td>
                                         <td>
-                                            {!! substr($c->description,0,250).'...' !!}
+                                            {!! substr($c->description,0,100).'...' !!}
                                         </td>
                                         <td class="text-right">
                                             <a href="{{ route('news.show', $c->id) }}"><i

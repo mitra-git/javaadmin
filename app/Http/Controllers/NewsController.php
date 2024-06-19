@@ -25,7 +25,6 @@ class NewsController extends Controller
     {
         $this->validate($request, [
             'title' => 'required|max:255',
-            'link_video' => 'required',
             'image' => 'required|image|mimes:jpeg,jpg,png',
             'description' => 'required',
         ], [
@@ -34,7 +33,6 @@ class NewsController extends Controller
             'image.required' => 'Image is required.',
             'description.required' => 'Detail is required.',
             'description.max' => 'Detail should not exceed 255 characters.',
-            'link_video.required' => 'Title is required.',
         ]);
         $input = $request->all();
         if ($image = $request->file('image')) {
@@ -66,13 +64,11 @@ class NewsController extends Controller
         $request->validate([
             'title' => 'required|max:255',
             'image' => ($request->hasFile('image') || !$news->image) ? 'image|mimes:jpeg,jpg,png|max:2048' : '',
-            'link_video' => 'required',
             'description' => 'required',
         ], [
             'title.required' => 'Title is required.',
             'title.max' => 'Title should not exceed 255 characters.',
             'image.required' => 'Image is required.',
-            'link_video.required' => 'Title is required.',
             'description.required' => 'Detail is required.',
             'description.max' => 'Detail should not exceed 255 characters.',
         ]);

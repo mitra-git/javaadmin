@@ -29,13 +29,8 @@ class InformationController extends Controller
                 'description' => 'required',
                 'address' => 'required',
                 'phone' => 'required',
-                'instagram' => 'required',
-                'youtube' => 'required',
-                'facebook' => 'required',
-                'tiktok' => 'required',
                 'google_map' => 'required',
                 'order_wa' => 'required',
-                'video' => 'required',
                 'header_image' => ($request->hasFile('header_image') || !$information->header_image) ? 'image|mimes:jpeg,jpg,png|max:2048' : '', // Check if image is required
             ];
 

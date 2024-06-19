@@ -179,7 +179,7 @@ Website Information / Edit
             <div class="row">
               <div class="col-md-12">
                 <div class="form-group">
-                  <label>About Us Video (YouTube Link)</label>
+                  <label>About Us Video (YouTube Link) (*optional)</label>
                   <div class="grid grid-cols-6">
                     <div id="video_container">
                       @if($information->video)
@@ -363,27 +363,35 @@ Website Information / Edit
         <div class="row">
           <div class="col-sm-12">
             <div class="row">
+              @if(!empty($information->youtube))
               <div class="col-sm-3 py-2 px-2">
-                <a href="{{$information->youtube}}" target="_blank">
-                  <img src="{{asset('assets/img/Logo yt.png')}}" style="width:20%" />
-                </a>
+                  <a href="{{$information->youtube}}" target="_blank">
+                      <img src="{{asset('assets/img/Logo yt.png')}}" style="width:20%" />
+                  </a>
               </div>
+              @endif
+              @if(!empty($information->facebook))
               <div class="col-sm-3 py-2 px-2">
-                <a href="{{$information->facebook}}" target="_blank">
-                  <img src="{{asset('assets/img/Logo fb.png')}}" style="width:13%" />
-                </a>
+                  <a href="{{$information->facebook}}" target="_blank">
+                      <img src="{{asset('assets/img/Logo fb.png')}}" style="width:13%" />
+                  </a>
               </div>
+              @endif
+              @if(!empty($information->tiktok))
               <div class="col-sm-3 py-2 px-2">
-                <a href="{{$information->tiktok}}" target="_blank">
-                  <img src="{{asset('assets/img/Logo tiktok.png')}}" style="width:20%" />
-                </a>
+                  <a href="{{$information->tiktok}}" target="_blank">
+                      <img src="{{asset('assets/img/Logo tiktok.png')}}" style="width:20%" />
+                  </a>
               </div>
+              @endif
+              @if(!empty($information->instagram))
               <div class="col-sm-3 py-2 px-2">
-                <a href="{{$information->instagram}}" target="_blank">
-                  <img src="{{asset('assets/img/Logo ig.png')}}" style="width:20%" />
-                </a>
+                  <a href="{{$information->instagram}}" target="_blank">
+                      <img src="{{asset('assets/img/Logo ig.png')}}" style="width:20%" />
+                  </a>
               </div>
-            </div>
+              @endif
+          </div>
           </div>
         </div>
       </div>

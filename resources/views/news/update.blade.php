@@ -86,7 +86,7 @@ News / Edit / {{$news->id}}
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="form-group">
-                                        <label>YouTube Link</label>
+                                        <label>YouTube Link (*optional)</label>
                                         <div class="grid grid-cols-6">
                                             <div id="video_container">
                                                 @if($news->link_video)

@@ -5,6 +5,67 @@
 @section('breadcrumb')
 Website Information / Edit
 @endsection
+<style>
+  .switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+  }
+
+  .switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+  }
+
+  .slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  .slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+  }
+
+  input:checked+.slider {
+    background-color: #2196F3;
+  }
+
+  input:focus+.slider {
+    box-shadow: 0 0 1px #2196F3;
+  }
+
+  input:checked+.slider:before {
+    -webkit-transform: translateX(26px);
+    -ms-transform: translateX(26px);
+    transform: translateX(26px);
+  }
+
+  /* Rounded sliders */
+  .slider.round {
+    border-radius: 34px;
+  }
+
+  .slider.round:before {
+    border-radius: 50%;
+  }
+</style>
 
 <div class="panel-header panel-header-sm">
 </div>
@@ -344,6 +405,19 @@ Website Information / Edit
                 </div>
               </div>
             </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label>Maintenance</label>
+                </div>
+              </div>
+            </div>
+            <label class="switch">
+              <input type="checkbox" id="maintenance" name="maintenance" value="{{$information->maintenance}}" {{
+                $information->maintenance == 1 ? 'checked' : ''
+              }}>
+              <span class="slider round"></span>
+            </label>
         </form>
       </div>
     </div>
@@ -365,33 +439,33 @@ Website Information / Edit
             <div class="row">
               @if(!empty($information->youtube))
               <div class="col-sm-3 py-2 px-2">
-                  <a href="{{$information->youtube}}" target="_blank">
-                      <img src="{{asset('assets/img/Logo yt.png')}}" style="width:20%" />
-                  </a>
+                <a href="{{$information->youtube}}" target="_blank">
+                  <img src="{{asset('assets/img/Logo yt.png')}}" style="width:20%" />
+                </a>
               </div>
               @endif
               @if(!empty($information->facebook))
               <div class="col-sm-3 py-2 px-2">
-                  <a href="{{$information->facebook}}" target="_blank">
-                      <img src="{{asset('assets/img/Logo fb.png')}}" style="width:13%" />
-                  </a>
+                <a href="{{$information->facebook}}" target="_blank">
+                  <img src="{{asset('assets/img/Logo fb.png')}}" style="width:13%" />
+                </a>
               </div>
               @endif
               @if(!empty($information->tiktok))
               <div class="col-sm-3 py-2 px-2">
-                  <a href="{{$information->tiktok}}" target="_blank">
-                      <img src="{{asset('assets/img/Logo tiktok.png')}}" style="width:20%" />
-                  </a>
+                <a href="{{$information->tiktok}}" target="_blank">
+                  <img src="{{asset('assets/img/Logo tiktok.png')}}" style="width:20%" />
+                </a>
               </div>
               @endif
               @if(!empty($information->instagram))
               <div class="col-sm-3 py-2 px-2">
-                  <a href="{{$information->instagram}}" target="_blank">
-                      <img src="{{asset('assets/img/Logo ig.png')}}" style="width:20%" />
-                  </a>
+                <a href="{{$information->instagram}}" target="_blank">
+                  <img src="{{asset('assets/img/Logo ig.png')}}" style="width:20%" />
+                </a>
               </div>
               @endif
-          </div>
+            </div>
           </div>
         </div>
       </div>

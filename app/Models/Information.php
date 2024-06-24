@@ -29,5 +29,6 @@ class Information extends Model
         'google_map',
         'link_wa',
         'order_wa',
+        'maintenance',
     ];
 }

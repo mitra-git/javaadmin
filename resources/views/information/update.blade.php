@@ -413,8 +413,11 @@ Website Information / Edit
               </div>
             </div>
             <label class="switch">
-              <input type="checkbox" id="maintenance" name="maintenance" value="{{$information->maintenance}}" {{
-                $information->maintenance == 1 ? 'checked' : ''
+              <!-- Hidden input to handle unchecked state -->
+              <input type="hidden" name="maintenance" value="0">
+              <!-- Checkbox input -->
+              <input type="checkbox" id="maintenance" name="maintenance" value="1" {{ $information->maintenance == 1 ?
+              'checked' : ''
               }}>
               <span class="slider round"></span>
             </label>

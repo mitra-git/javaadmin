@@ -31,6 +31,7 @@ class InformationController extends Controller
                 'phone' => 'required',
                 'google_map' => 'required',
                 'order_wa' => 'required',
+                'maintenance' => 'required|boolean',
                 'header_image' => ($request->hasFile('header_image') || !$information->header_image) ? 'image|mimes:jpeg,jpg,png|max:2048' : '', // Check if image is required
             ];
 
@@ -161,6 +162,7 @@ class InformationController extends Controller
             } elseif (!$request->hasFile('header_image') && !$information->header_image) {
                 unset($input['header_image']);
             }
+            $information->maintenance = $request->input('maintenance');
 
             $information->update($input);
 
